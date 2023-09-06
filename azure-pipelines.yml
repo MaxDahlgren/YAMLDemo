@@ -48,3 +48,14 @@ steps:
      artifactName: 'drop'
      itemPattern: '**/*.zip'
      downloadPath: '$(System.ArtifactsDirectory)'
+
+# Publish to Azure
+
+ - task: AzureRmWebAppDeployment@4
+   displayName: 'Publishing the app to Azure'
+   inputs:
+     ConnectionType: AzureRM
+     azureSubscription: 'yamlconnection'
+     appType: webApp
+     WebAppName: 'maxyamltest'
+     package: '$(Build.ArtifactStagingDirectory)/Release/*.zip'
